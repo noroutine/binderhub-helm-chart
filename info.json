@@ -56,39 +56,8 @@ dev aka. latest:
     ... just pick the latest version.
 {%- endcomment -%}
 
-{%- assign jupyterhub = site.data.index.entries.jupyterhub | sort: 'created' | reverse -%}
 {%- assign binderhub = site.data.index.entries.binderhub | sort: 'created' | reverse -%}
-{%- assign pebble = site.data.index.entries.pebble | sort: 'created' | reverse -%}
-{%- assign jh_latest = jupyterhub | first -%}
 {%- assign bh_latest = binderhub | first -%}
-{%- assign pebble_latest = pebble | first -%}
-
-
-{%- capture "jh_stable_version" -%}
-{%- for chart in jupyterhub -%}
-    {%- unless chart.version contains "-" -%}
-        {{ chart.version }};
-    {%- endunless -%}
-{%- endfor -%}
-{%- endcapture -%}
-{%- assign jh_stable_version = jh_stable_version | split: ";" | first -%}
-
-{%- capture "jh_pre_version" -%}
-{%- for chart in jupyterhub -%}
-    {%- assign dots_count_after_dash = chart.version | split: "-" | shift | first | split: "." | size | minus: 1 -%}
-    {%- assign first_char_after_dash = chart.version | split: "-" | shift | first | slice: 0 -%}
-    {%- if chart.version contains "-" -%}
-        {%- if dots_count_after_dash == 1 -%}
-            {%- if first_char_after_dash != "n" -%}
-                {{ chart.version }};
-            {%- endif -%}
-        {%- endif -%}
-    {%- else -%}
-        {{ chart.version }};
-    {%- endif -%}
-{%- endfor -%}
-{%- endcapture -%}
-{%- assign jh_pre_version = jh_pre_version | split: ";" | first -%}
 
 
 {%- capture "bh_stable_version" -%}
@@ -118,52 +87,12 @@ dev aka. latest:
 {%- assign bh_pre_version = bh_pre_version | split: ";" | first -%}
 
 
-{%- capture "pebble_stable_version" -%}
-{%- for chart in pebble -%}
-    {%- unless chart.version contains "-" -%}
-        {{ chart.version }};
-    {%- endunless -%}
-{%- endfor -%}
-{%- endcapture -%}
-{%- assign pebble_stable_version = pebble_stable_version | split: ";" | first -%}
-
-{%- capture "pebble_pre_version" -%}
-{%- for chart in pebble -%}
-    {%- assign dots_count_after_dash = chart.version | split: "-" | shift | first | split: "." | size | minus: 1 -%}
-    {%- assign first_char_after_dash = chart.version | split: "-" | shift | first | slice: 0 -%}
-    {%- if chart.version contains "-" -%}
-        {%- if dots_count_after_dash == 1 -%}
-            {%- if first_char_after_dash != "n" -%}
-                {{ chart.version }};
-            {%- endif -%}
-        {%- endif -%}
-    {%- else -%}
-        {{ chart.version }};
-    {%- endif -%}
-{%- endfor -%}
-{%- endcapture -%}
-{%- assign pebble_pre_version = pebble_pre_version | split: ";" | first -%}
-
 {
-    "jupyterhub":
-        {
-            "stable": "{{ jh_stable_version }}",
-            "pre": "{{ jh_pre_version }}",
-            "dev": "{{ jh_latest.version }}",
-            "latest": "{{ jh_latest.version }}"
-        },
     "binderhub":
         {
             "stable": "{{ bh_stable_version }}",
             "pre": "{{ bh_pre_version }}",
             "dev": "{{ bh_latest.version }}",
             "latest": "{{ bh_latest.version }}"
-        },
-    "pebble":
-        {
-            "stable": "{{ pebble_stable_version }}",
-            "pre": "{{ pebble_pre_version }}",
-            "dev": "{{ pebble_latest.version }}",
-            "latest": "{{ pebble_latest.version }}"
         }
 }

@@ -1,15 +1,11 @@
 ## See installation instructions for:
 
-- [JupyterHub](https://zero-to-jupyterhub.readthedocs.io)
 - [BinderHub](https://binderhub.readthedocs.io)
 
 Jump to:
 {%- for chartmap in site.data.index.entries %}
 - [Development Releases: {{ chartmap[0] }}](#development-releases-{{ chartmap[0] | slugify }})
 {%- endfor %}
-
-
-## Stable releases
 
 {% for chartmap in site.data.index.entries %}
   {% if site.stableCharts contains chartmap[0] %}
