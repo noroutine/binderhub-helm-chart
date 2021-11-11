@@ -26,10 +26,10 @@ Jump to:
 {% for chartmap in site.data.index.entries %}
 ### Development releases: {{ chartmap[0] }}
 
-| Version | App. version | Date |
-|---------|-----|---------------------|
+| Version | Date |
+|---------|---------------------|
   {%- assign sortedcharts = chartmap[1] | sort: 'created' | reverse %}
   {%- for chart in sortedcharts %}
-| [{{ chart.version }}]({{ chart.urls[0] }}) | {{ chart.app_version }} | {{ chart.created | date_to_rfc822 }} |
+| [{{ chart.version }}]({{ chart.urls[0] }}) | {{ chart.created | date_to_rfc822 }} |
   {%- endfor %}
 {% endfor %}
